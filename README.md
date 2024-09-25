@@ -1,18 +1,48 @@
-## Ummm... Hi...
-figure I should maybe introduce myself...<br />
-<sub>uh...</sub>
+here's an excruciatingly long introduction for something I could probably just write down in a more simplified manner in 50 words or less or something
 
-- **Name:** CommandCreep
-  - __Nicknames__: "Creep," "CC"
-- **Age:** 16
-  - __Maturity Grade__: B-
-- **Skills:** Programming; Pixel Art; 3D Modeling *(sort of)*; Procrastination
-  - __Not-Skills__: typical art
-- **Interests:** Minecraft; Nintendo *(see sub-item)*; Geometry Dash; Cookie Clicker; Angry Birds / Rovio
-  - __Nintendo Interests__: Mario; Kirby; Flipnote Studio; Console Modding
-- **Gender:** Male
-- **Religion:** Lutheran Christianity
-- **Personality:** silly idiot **:D**
-  - __here have a cookie__:![<:haveacookie:1246628352211816468>](https://cdn.discordapp.com/emojis/1246628352211816468.webp?size=20)
+## - __Name:__ CommandCreep
+  - **Alternatives:** SaveMe5656 (don't ask)
+  - **Nicknames:** "Creep," "CC"
+## - __Age:__ 16
+  - **Personal Maturity Grade:** B-
+## - __Personality:__ some random teenager on the internet
+  - **Religion:** Christian *(Lutheran)*
+  - **Motives:**
+    1. __What's right__
+    2. __What feels random enough that people will question it and my sanity__ *(even better, that's a genetic trait)*
+## - __Interests:__
+  - **Programming**
+    - __Web Development__ *(specifically things like JavaScript and interactive stuff)*
+    - __Calculator Development__ _(yes, you can program things on a calculator)_
+  - **Video Games**
+    - __Minecraft__ *(should be kinda obvious...)*
+    - __Geometry Dash__
+    - __Mario__
+      -# - 2D Mainline *(more specifically NSMB and onwards)*
+      -# - 3D Mainline *(including 3D Land/World; excluding Sunshine)*
+      -# - Mario Kart *(MK Wii -> current era)*
+    - __Rovio__
+      -# - Angry Birds *(before the Movie came out)*
+      -# - Bad Piggies
+      -# - __***NOT***__ the Angry Birds Movies
+      -# - Angry Birds Refresh *(community revival of Adobe Flash Angry Birds Friends)*
+      -# - Retry *(very underrated game with a __great__ soundtrack)*
+    - __Cookie Clicker__
+    - __2D Boy / Tomorrow Corporation__
+      -# - World of Goo
+      -# - Little Inferno
+    - __Cave Story__
+    - __Mini Motorways__
+    - __Untitled Goose Game__
+  - **Creativity**
+    - __3D Modeling__
+    - __Flipnote Studio__
+    - __Sprite Art__
+    - __Minecraft texture packs__ *(mainly just cramming the newer stuff onto older versions just to spite the nostalgists)*
+    - YouTube *(I post something like once every `undefined`)*
+  - **Other Completely Random Stuff**
+    - __Spliced__ _(go look it up, now **:)**)_
+    - __VeggieTales__ *(I think you look like Cap'n Crunch)*
 
-uhhh that's it...
+nice, you made it to the end of the stupidly long version of my Discord user description
+you deserve a cookie:![<:haveacookie:1246628352211816468>](https://cdn.discordapp.com/emojis/1246628352211816468.webp?size=20)
