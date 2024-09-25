@@ -44,5 +44,5 @@ here's an excruciatingly long introduction for something I could probably just w
     - __Spliced__ _(go look it up, now **:)**)_
     - __VeggieTales__ *(I think you look like Cap'n Crunch)*
 
-nice, you made it to the end of the stupidly long version of my Discord user description
+nice, you made it to the end of the stupidly long version of my user description
 you deserve a cookie:![<:haveacookie:1246628352211816468>](https://cdn.discordapp.com/emojis/1246628352211816468.webp?size=20)
