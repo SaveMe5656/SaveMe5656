@@ -9,7 +9,7 @@ here's an excruciatingly long introduction for something I could probably just w
   - **Religion:** Christian *(Lutheran)*
   - **Motives:**
     1. __What's right__
-    2. __What feels random enough that people will question it and my sanity__ *(even better, that's a genetic trait)*
+    2. __What feels random enough that people will question it and my sanity__ *(that's also a genetic trait)*
 ## __Interests:__
   - **Programming**
     - __Web Development__ *(specifically things like JavaScript and interactive stuff)*
@@ -40,9 +40,6 @@ here's an excruciatingly long introduction for something I could probably just w
     - __Sprite Art__
     - __Minecraft texture packs__ *(mainly just cramming the newer stuff onto older versions just to spite the nostalgists)*
     - YouTube *(I post something like once every `undefined`)*
-  - **Other Completely Random Stuff**
-    - __Spliced__ _(go look it up, now **:)**)_
-    - __VeggieTales__ *(I think you look like Cap'n Crunch)*
 
 nice, you made it to the end of the stupidly long version of my user description
 you deserve a cookie:![<:haveacookie:1246628352211816468>](https://cdn.discordapp.com/emojis/1246628352211816468.webp?size=20)
