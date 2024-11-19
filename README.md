@@ -1,7 +1,5 @@
 here's an excruciatingly long introduction for something I could probably just write down in a more simplified manner in 50 words or less or something
 
-here's an excruciatingly long introduction for something I could probably just write down in a more simplified manner in 50 words or less or something
-
 ## - __Name:__ CommandCreep
   - **Alternatives:** SaveMe5656 (don't ask)
   - **Nicknames:** "Creep" "CC"
@@ -9,6 +7,9 @@ here's an excruciatingly long introduction for something I could probably just w
   - **Personal Maturity Grade:** B-
 ## - __Personality:__ some random teenager on the internet
   - **Religion:** Christian *(Lutheran)*
+  - **Frequent Habits:**
+    - __Mind-Wandering__
+    - __Not Sleeping__ *(my life span is most likely decreasing...)*
   - **Motives:**
     1. __What's right__
     2. __What feels random enough that people will question it and my sanity__ *(strangely enough is a genetic trait)*
