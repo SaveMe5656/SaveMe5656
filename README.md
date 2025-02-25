@@ -1,11 +1,11 @@
 here, have an excruciatingly long description of myself for no particular reason
 
-## - __Name:__ CommandCreep
+## __Name:__ CommandCreep
   - **Alternatives:** SaveMe5656 (don't ask)
   - **Nicknames:** "Creep" "CC"
-## - __Age:__ 16
+## __Age:__ 17
   - **Personal Maturity Grade:** B+
-## - __Description:__ some random teenager on the internet
+## __Description:__ some random teenager on the internet
   - **Religion:** Christian *(Lutheran)*
   - **Frequent Habits:**
     - __Mind-Wandering__
@@ -13,7 +13,7 @@ here, have an excruciatingly long description of myself for no particular reason
   - **Motives:**
     1. __What's right__
     2. __What feels random enough that people will question it and my sanity__ *(might actually be a genetic trait)*
-## - __Interests:__
+## __Interests:__
   - **Programming**
     - __Web Development__ *(specifically things like JavaScript and interactive stuff)*
     - __Calculator Development__ _(yes, you can program things on a calculator)_
