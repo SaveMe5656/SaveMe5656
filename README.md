@@ -46,3 +46,6 @@ here, have an excruciatingly long description of myself for no particular reason
     - __Sprite Art__
     - __Minecraft texture packs__ *(mainly just cramming the newer stuff onto older versions just to spite the nostalgists)*
     - YouTube *(I post something once every `undefined`)*
+  - **Other**
+    - __BFDI web series__
+    - __random internet media__ *(must be why I once had a Discord server that resembled a media dump)*
