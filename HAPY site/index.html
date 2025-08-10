@@ -1,0 +1,992 @@
+<?
+$sfr_back = count(explode("/",$_SERVER['PHP_SELF'])) - 2;
+$sfr_date = "1/12/2023"; // date page was moved
+$sfr_newloc = "https://www.wcgdrailroad.com"; // location of new page or file, MUST be full path!
+include(str_repeat("../",$sfr_back)."files/redirect.inc"); // add path from root before redirect.php if placing script in subfolder
+
+$wcgd_title = "Waukesha County Gandy Dancers Model Railroad Club";
+$wcgd_desc = "Not for profit HO model train club in Waukesha, Wisconsin.  New members welcome.";
+// $wcgd_keyw = "HO,scale,model,railroad,train,club,new,member,welcome,trips,Trainfest,open, house,houses,";
+$wcgd_heading = "&nbsp;";
+include("files/header.inc");
+// calendar At-A-Glance beta.2
+// changelog:
+# 2010-10-2? beta.1 create automation for At-A-Glance calendar with query string activation
+# 2010-11-02 beta.2 remove query string activation, rename query string (caltest > date)
+# beta.3 2012-02-10 original data removed; testing external file call (that didn't work -- let's try setting up the test file with all the data ready for the UI)
+# beta.3a 2012-02-10 let's try file_get_contents instead (nope, still didn't work. :( )
+# beta.3b 2012-02-11 back up a step, let's put part of the contents of the file into a variable, see if that works
+# beta.3c 2012-02-11 try file_get_contents again, with a simplified data file
+# beta.3d 2012-02-11 going back to the variable, gotta figure out what's not working with the file call
+# beta.3e 2012-02-11 Try this a different way, explode out \r\n, \r, and \n, and implode in a return character
+# beta.3f 2012-02-11 array_unshift the cal_data, I think that's throwing things off.  (I wonder if it was all along???  Hmmm...)
+# beta.3g 2012-02-11 Let's try it without removing carriage returns.  (But that *was* good practice...)
+# 
+// end changelog (this will go in an include file eventually)
+
+// check for test variable since this is still beta
+
+/* include will have to wait till later, automation NOW is key!
+  // we'll use an include to make it easier to disable when it's being serviced
+  @include("files/calendar.inc");
+*/
+  // temporary calendar automation
+  // first project: what is the month today?
+$wcgd_cal_date = $_GET['date'];
+if ($wcgd_cal_date == "") {
+  $wcgd_cal_date = "now";
+}
+$wcgd_cal_motoday = date("F",strtotime($wcgd_cal_date));
+$wcgd_cal_yrtoday = date("Y",strtotime($wcgd_cal_date));
+
+// (beta.3) let's try this with an external file!
+$wcgd_test = $_GET['testfoo'];
+if ($wcgd_test == "bar") {
+  // call external file -- err, not yet (beta.3b) -- trying again in beta.3c and beta.3e
+  $wcgd_caltest = file_get_contents("http://www.wcgandydancers.org/files/caltest.txt");
+  // let's try it without removing the carriage returns (beta.3g)
+  /* $wcgd_caltest1 = implode("
+",explode("\r\n", $wcgd_caltest));
+  $wcgd_caltest2 = implode("
+",explode("\r", $wcgd_caltest1));
+  $wcgd_caltest1 = implode("
+",explode("\n", $wcgd_caltest2)); */
+  $wcgd_cal_data = explode("###
+",$wcgd_caltest);
+  array_unshift($wcgd_cal_data,""); // *this* should make this exactly the same as the beta.2 data (below) (fixed? in beta.3f)
+} else {
+
+// event pre-loads, borrowed from the Events page for 2014
+$weoh = "Open House&nbsp;";
+$wemt = "Meeting&nbsp;";
+$weyg = "YOUTH GROUP&nbsp;";
+$wewd = "Work day&nbsp;";
+
+// now, we put a few months' worth of data together
+$wcgd_cal_data = array( 1 =>
+  "August 2010
+Open House&nbsp; 7th&nbsp; 4-9pm
+Meeting&nbsp; 14th 7:30pm
+YOUTH GROUP&nbsp; 7th/21st 1-4PM",
+  "September 2010
+Open House&nbsp; 4th&nbsp; 4-9pm
+Meeting&nbsp; 11th 7:30pm
+YOUTH GROUP&nbsp; 4th/18th 1-4PM",
+  "October 2010
+Open House&nbsp; 2nd&nbsp; 4-9pm
+Meeting&nbsp; 9th&nbsp; 7:30pm
+YOUTH GROUP&nbsp; 2nd/16th/30th 1-4PM",
+  "November 2010
+Meeting&nbsp; 6th&nbsp; <strong style=\"color: red;\">7:00pm</strong><br>(take down layout after meeting)
+Load truck for Trainfest&nbsp; 11th 7:00pm
+Load in at Trainfest&nbsp; 12th 9:00am
+Trainfest&nbsp; 13th &amp; 14th 9am-5:30pm
+YOUTH GROUP&nbsp; 6th&nbsp; 1-4PM
+YOUTH GROUP&nbsp; 20th 1PM-?<br>(short meeting to set up layout)",
+  "December 2010
+Open House&nbsp; 4th&nbsp; 4-9pm
+YOUTH GROUP&nbsp; 4th&nbsp; 1-4PM
+Meeting&nbsp; 11th <strong style=\"color: red;\">6:00pm</strong>
+Christmas Party&nbsp; 11th 7:30pm (after meeting)
+YOUTH GROUP load/set up for DW&nbsp; 17th 5PM
+YOUTH GROUP @ Discovery World&nbsp; 18th/19th 10AM?-4PM?",
+  "January 2011
+Meeting&nbsp; 8th&nbsp; 7:30pm
+Open House/Janboree&nbsp; 21st 4PM-9PM<br>22nd&nbsp; 10am-8pm / 23rd&nbsp; 10am-6pm<br><span style=\"font-size: 80%;\">Pancake breakfast&nbsp; Saturday morning</span>
+Banquet&nbsp; 29th 5pm<br>at Lions Club in Big Bend
+YOUTH GROUP&nbsp; 8th/22nd 1-4PM",
+  "February 2011
+Open House&nbsp; 5th&nbsp; 4-9pm
+Meeting&nbsp; 12th 7:30pm
+YOUTH GROUP&nbsp; 5th/19th 1-4PM",
+  "March 2011
+Open House&nbsp; 5th&nbsp; 4-9pm
+Meeting&nbsp; 12th 7:30pm
+YOUTH GROUP&nbsp; 5th/19th 1-4PM",
+  "April 2011
+Open House&nbsp; 2nd&nbsp; 4-9pm
+Meeting&nbsp; 9th&nbsp; 7:30pm
+YOUTH GROUP&nbsp; 2nd/16th/30th 1-4PM",
+  "May 2011
+Open House&nbsp; 7th&nbsp; 4-9pm
+Meeting&nbsp; 14th 7:30pm
+YOUTH GROUP&nbsp; 14th/28th 1-4PM",
+  "June 2011
+Open House&nbsp; 4th&nbsp; 4-9pm
+Meeting&nbsp; 11th 7:30pm
+YOUTH GROUP&nbsp; 11th/25th 1-4PM",
+  "July 2011
+Open House&nbsp; 2nd&nbsp; 4-9pm
+Meeting&nbsp; 9th&nbsp; 7:30pm
+YOUTH GROUP&nbsp; 9th/23rd 1-4PM",
+  "August 2011
+Open House&nbsp; 6th&nbsp; 4-9pm
+Meeting&nbsp; 13th 7:30pm
+YOUTH GROUP&nbsp; 6th/20th 1-4PM",
+  "September 2011
+Open House&nbsp; 3rd&nbsp; 4-9pm
+Meeting&nbsp; 10th 7:30pm
+YOUTH GROUP&nbsp; 3rd/17th 1-4PM",
+  "October 2011
+Open House&nbsp; 1st&nbsp; 4-9pm
+Meeting&nbsp; 8th&nbsp; 7:30pm
+YOUTH GROUP&nbsp; 29th 10AM-1PM",
+  "November 2011
+Meeting&nbsp; 5th&nbsp; <strong style=\"color: red;\">7:00pm</strong><br>(take down layout after meeting)
+Load truck for Trainfest&nbsp; 10th 7:00pm
+Load in at Trainfest&nbsp; 11th 9:00am
+Trainfest&nbsp; 12th &amp; 13th 9am-5:30pm
+YOUTH GROUP&nbsp; 5th&nbsp; 10AM-1PM
+YOUTH GROUP&nbsp; 19th 10AM<br>(short meeting to set up layout)
+layout reassembling 19th 2pm",
+  "December 2011
+Open House&nbsp; 3rd&nbsp; 4-9pm
+Meeting&nbsp; 10th 7:30pm
+YOUTH GROUP&nbsp; 3rd/10th 10AM-1PM"
+  ,"January 2012
+Meeting&nbsp; 14th 7:30pm
+Open House/Janboree&nbsp; 20th 4PM-9PM<br>21st&nbsp; 10am-8pm / 22nd&nbsp; 10am-6pm<br><span style=\"font-size: 80%;\"><!-- Pancake breakfast&nbsp; Saturday morning -->*** Weather permitting! ***</span>
+Banquet&nbsp; 28th 5pm<br>at Lions Club in Big Bend"
+  ,"February 2012
+Open House&nbsp; 4th&nbsp; 4-9pm
+Meeting&nbsp; 11th 7:30pm
+Work Session&nbsp; 18th 2PM-?
+YOUTH GROUP&nbsp; 4th/25th 10AM-1PM"
+  ,"March 2012
+Meeting&nbsp; 10th 7:30pm
+Work Session&nbsp; 17th 2PM-?
+YOUTH GROUP @ Train Time @ MSOE<br>3rd/4th 10AM-5PM
+YOUTH GROUP&nbsp; 17th/31st 1-4PM"
+  ,"April 2012
+Meeting&nbsp; 14th 7:30pm
+Work Session&nbsp; 21st 2PM-?
+YOUTH GROUP&nbsp; 21st 1-4PM"
+  ,"May 2012
+Open House&nbsp; 5th&nbsp; 4-9PM
+Meeting&nbsp; 12th 7:30pm
+Work Session&nbsp; 19th 2PM-?
+YOUTH GROUP&nbsp; 5th/19th 1-4PM"
+  ,"June 2012
+Open for Freeman Friday Night Live<br>1st/8th/15th/22nd/29th 6?-9?PM<br>* <span style=\"text-variant: small-caps;\">See note above</span> *
+Meeting&nbsp; 9th&nbsp; 7:30pm
+Work Session&nbsp; 16th 2PM-?
+YOUTH GROUP&nbsp; 9th 1-4PM &nbsp; &nbsp; &nbsp; &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style=\"color: red;\">23rd CANCELED</span>"
+  ,"July 2012
+Open for Freeman Friday Night Live<br>6th/13th/20th/27th 6?-9?PM<br>* <span style=\"text-variant: small-caps;\">See note above</span> *
+Meeting&nbsp; 14th 7:30pm
+Work Session&nbsp; 21st 2PM-?
+YOUTH GROUP&nbsp; 14th/28th 1-4PM"
+  ,"August 2012
+Open House&nbsp; 4th&nbsp; 4-9PM
+Open for Freeman Friday Night Live<br>3rd/10th/17th/24th/31st 6?-9?PM<br>* <span style=\"text-variant: small-caps;\">See note above</span> *
+Meeting&nbsp; 11th 7:30pm
+Work Session&nbsp; 18th 2PM-?
+YOUTH GROUP&nbsp; 4th/18th/<span style=\"color: red; font-weight: bold;\">25th</span> 1-4PM"
+  ,"September 2012
+Open for Freeman Friday Night Live<br>7th/14th/21st/28th 6-9PM
+Meeting&nbsp; 8th 7:30pm
+Work Session&nbsp; 15th 2PM-?
+YOUTH GROUP&nbsp; 8th/<span style=\"color: red; font-weight: bold;\">15th</span>/22nd/<span style=\"color: red; font-weight: bold;\">29th</span> 1-4PM"
+  ,"October 2012
+Open House&nbsp; 6th&nbsp; 4-9PM
+Meeting&nbsp; 13th <span style=\"color: red; font-weight: bold;\">4pm</span>
+Work Session&nbsp; 20th 2PM-?
+YOUTH GROUP&nbsp; 6th/13th/20th/<span style=\"color: red; font-weight: bold;\">27th</span> <span style=\"color: red; font-weight: bold;\">1-4PM</span>"
+  ,"November 2012
+Meeting&nbsp; 3rd&nbsp; <span style=\"color: red; font-weight: bold;\">4pm</span><br>(take down layout after meeting)
+Load truck for Trainfest&nbsp; 8th&nbsp; 7:00pm
+Load in at Trainfest&nbsp; 9th&nbsp; 9:00am
+Trainfest&nbsp; 10th &amp; 11th 9am-5:30pm
+Reassemble Layout&nbsp; 17th 2PM-?
+YOUTH GROUP&nbsp; 3rd&nbsp; <span style=\"color: red; font-weight: bold;\">1-4PM</span>"
+  ,"December 2012
+Open House&nbsp; 1st&nbsp; 4-9PM
+Meeting&nbsp; 8th&nbsp; <span style=\"color: red; font-weight: bold;\">4pm</span>
+Work Session&nbsp; 15th 2PM-?
+YOUTH GROUP&nbsp; 1st/29th 1-4PM"
+  ,"January 2013
+Meeting&nbsp; 12th 7:30pm
+Open House/Janboree&nbsp; 18th 4PM-9PM<br>19th&nbsp; 10am-8pm / 20th&nbsp; 10am-6pm<br><span style=\"font-size: 80%;\"><!-- Pancake breakfast&nbsp; Saturday morning *** Weather permitting! *** --></span>
+Banquet&nbsp; 26th 5pm<br>at Lions Club in Big Bend
+YOUTH GROUP&nbsp; 12th 1-4PM"
+  ,"February 2013
+Open House&nbsp; 2nd&nbsp; 4-9pm
+Meeting&nbsp; 9th&nbsp; 7:30pm
+Work Session&nbsp; 16th 2PM-?
+YOUTH GROUP&nbsp; 2nd/16th/23rd 1-4PM"
+  ,"March 2013
+Open House&nbsp; 2nd&nbsp; 4-9pm
+Meeting&nbsp; 9th&nbsp; 7:30pm
+YOUTH GROUP&nbsp; 9th/23rd 1-4PM"
+  ,"April 2013
+Meeting&nbsp; 13th 7:30pm
+YOUTH GROUP&nbsp; 6th/20th 1-4PM"
+  ,"May 2013
+Open House&nbsp; 4th&nbsp; 4-9pm
+Meeting&nbsp; <s style=\"font-size: 75%;\">11th</s> <span style=\"color: red;\">18th</span> 7:30pm
+YOUTH GROUP&nbsp; 4th/18th 1-4PM"
+  ,"June 2013
+Meeting&nbsp; 8th&nbsp; 7:30pm
+YOUTH GROUP&nbsp; 1st/15th/29th 1-4PM"
+  ,"July 2013
+Meeting&nbsp; 13th 7:30pm
+YOUTH GROUP&nbsp; 13th/27th 1-4PM"
+  ,"August 2013
+Open House + Rummage Sale&nbsp; 3rd&nbsp; 4-9pm
+Meeting&nbsp; 10th 7:30pm
+YOUTH GROUP&nbsp; 10th/24th 1-4PM"
+  ,"September 2013
+Open House + Rummage Sale<br> 6th&nbsp; 5-9pm / 7th&nbsp; 10am-4?pm
+Meeting&nbsp; 14th 7:30pm
+YOUTH GROUP&nbsp; 7th/21st 1-4PM"
+  ,"October 2013
+Open House&nbsp; 5th&nbsp; 4-9pm
+Meeting&nbsp; 12th <span style=\"color: red; font-weight: bold;\">4pm</span><br>(assemble carts after meeting) 
+YOUTH GROUP&nbsp; 5th/12th/19th/26th 1-4PM"
+  ,"November 2013
+Meeting&nbsp; 2nd&nbsp; <span style=\"color: red; font-weight: bold;\">4pm</span><br>(take down layout after meeting)
+Load truck for Trainfest&nbsp; 7th&nbsp; 7:00pm
+Load in at Trainfest&nbsp; 8th&nbsp; 9:00am
+Trainfest&nbsp; 9th&nbsp; &amp; 10th 9am-5:30pm
+Reassemble Layout&nbsp; 16th 2PM-?
+YOUTH GROUP&nbsp; 2nd/16th <span>1-4PM</span>"
+  ,"December 2013
+Open House&nbsp; 7th&nbsp; 4-9PM
+Meeting &amp; Christmas Party&nbsp; 14th <span style=\"color: red; font-weight: bold;\">5pm</span>
+YOUTH GROUP&nbsp; 7th&nbsp; 1-4PM"
+  ,"January 2014
+{$wemt} 11th 6pm
+Open House/Janboree&nbsp; 17th 4PM-9PM<br>18th&nbsp; 10am-8pm / 19th&nbsp; 10am-6pm<br><span style=\"font-size: 80%;\"><!-- Pancake breakfast&nbsp; Saturday morning *** Weather permitting! *** --></span>
+Banquet&nbsp; 25th 5pm<br>at Lions Club in Big Bend
+{$weyg} 11th 1-4PM"
+  ,"February 2014
+{$wemt} 8th&nbsp; 6pm
+{$weyg} 1st/8th/22nd 1-4PM"
+  ,"March 2014
+{$weoh} 1st&nbsp; 4-9pm
+{$wemt} 8th&nbsp; 6pm
+YOUTH GROUP&nbsp; 8th/22nd 1-4PM"
+  ,"April 2014
+{$wemt} 12th 6pm
+{$weyg} 5th/26th 1-4PM"
+  ,"May 2014
+{$weoh} 3rd&nbsp; 4-9pm
+{$wemt} <span style=\"color: red;\">17th</span> 6pm
+{$weyg} 3rd/17th/31st 1-4PM"
+  ,"June 2014
+{$wemt} 14th 6pm
+{$weoh} 21st 4-9pm
+{$weyg} 14th/28th 1-4PM"
+  ,"July 2014
+{$wemt} 12th 6pm
+{$weyg} 12th/26th 1-4PM"
+  ,"August 2014
+{$weoh} 2nd&nbsp; 4-9pm
+{$wemt} 9th&nbsp; 6pm
+{$weyg} 9th/23rd 1-4PM"
+  ,"September 2014
+{$weoh} 6th&nbsp; <s>4-9pm</s> <span style=\"color: red; font-weight: bold;\">CANCELED</span>
+{$wemt} 13th <s>6pm</s> <span style=\"color: red; font-weight: bold;\">CANCELED</span>
+{$weyg} <s>6th/20th</s> 1-4PM <span style=\"color: red; font-weight: bold;\">CANCELED</span>"
+  ,"October 2014
+{$weoh} 4th&nbsp; 4-9pm
+{$wemt} 11th <span style=\"color: red; font-weight: bold;\">4pm</span><br>(assemble carts after meeting) 
+{$weyg} 4th/11th/18th/25th 1-4PM"
+  ,"November 2014
+{$wemt} 1st&nbsp; <span style=\"color: red; font-weight: bold;\">4pm</span><br>(take down layout after meeting)
+Load truck for Trainfest&nbsp; 6th&nbsp; 7:00pm
+Load in at Trainfest&nbsp; 7th&nbsp; 9:00am
+Trainfest&nbsp; 8th&nbsp; &amp; 9th 9am-5:30pm
+Reassemble Layout&nbsp; 15th 2PM-?
+{$weyg} 1st/15th <span>1-4PM</span>"
+  ,"December 2014
+{$weoh} 6th&nbsp; <s>4-9PM</s> <em style=\"color: orangered;\">CANCELED</em>
+Meeting &amp; Christmas Party&nbsp; 13th <span style=\"color: red; text-decoration: line-through;\">5pm</span> <span style=\"color: orangered; font-weight: bold;\">4pm</span>
+{$weyg} 6th/20th 1-4PM"
+  ,"January 2015
+{$wemt} 10th 6pm
+{$weyg} 10th/24th 1-4PM
+Open House/JanBoree 16th 4-9pm<br>17th 10am-8pm / 18th 10am-6pm
+Banquet&nbsp; 31st 5pm<br>at Lions Club in Big Bend"
+  ,"February 2015
+{$wemt} 7th&nbsp; 6pm
+{$weyg} 7th/21st 1-4PM"
+  ,"March 2015
+{$weoh} 7th&nbsp; 4-9PM
+{$wemt} 14th 6pm
+{$weyg} 7th/21st 1-4PM"
+  ,"April 2015
+{$wemt} 11th 6pm
+{$weyg} 11th/25th 1-4PM"
+  ,"May 2015
+{$weoh} 2nd&nbsp; 4-9PM
+{$wemt} <b style=\"color: orangered;\">16th</b> 6pm
+{$weyg} 2nd/16th/30th 1-4PM"
+  ,"June 2015
+{$wemt} 13th 6pm
+{$weoh} 20th 4-9PM
+{$weyg} 13th/27th 1-4PM"
+  ,"July 2015
+{$wemt} 11th 6pm
+{$weyg} 11th/25th 1-4PM"
+  ,"August 2015
+{$weoh} 1st&nbsp; 4-9PM
+{$wemt} 8th&nbsp; 6pm
+{$weyg} 8th/22nd 1-4PM"
+  ,"September 2015
+{$weoh} 5th&nbsp; 4-9PM
+{$wemt} 12th 6pm
+{$weyg} 5th/19th 1-4PM"
+  ,"October 2015
+{$weoh} 3rd&nbsp; 4-9PM
+{$wemt} 10th <b>6pm</b>
+{$weyg} 3rd/10th/17th/24th/31st 1-4PM"
+  ,"November 2015
+{$wemt} <span style=\"color: orangered; font-weight: bold;\">7th</span>&nbsp; 6pm 
+Layout Work Session&nbsp; 21st 2PM-?
+{$weyg} 7th/21st 1-4PM"
+  ,"December 2015
+{$weoh} 5th&nbsp; 4-9PM
+{$wemt}&amp; Christmas Party 12th <b style=\"color: orangered;\">5pm</b>
+{$weyg} 5th/19th 1-4PM"
+  ,"January 2016
+{$wemt} 9th&nbsp; 6pm
+Open House/JanBoree/<blink style=\"color: orangered;\">RUMMAGE SALE</blink><br>15th 4-9pm / 16th 10am-8pm / 17th 10am-6pm
+{$weyg} 9th 1-4PM/24th 2-5PM
+Banquet&nbsp; 30th 5pm<br>at Lions Club in Big Bend"
+  ,"February 2016
+{$wemt} 6th&nbsp; 6pm
+{$weyg} 6th/20th 1-4PM"
+  ,"March 2016
+{$weoh} 5th&nbsp; 4-9PM
+{$wemt} 12th 6pm
+{$weyg} 5th/19th 1-4PM"
+  ,"April 2016
+{$wemt} 9th&nbsp; 6pm
+{$weyg} 2nd/16th 1-4PM"
+  ,"May 2016
+Open House/Rummage Sale 7th&nbsp; 4-9PM
+{$wemt} 14th 6pm
+{$weyg} 1st/29th 2-5PM
+{$weyg} 14th 1-4PM"
+  ,"June 2016
+{$wemt} 11th 6pm
+{$weyg} 11th 1-4PM/26th 2-5PM
+{$weoh} 18th <b style=\"color: orangered;\">NOON-7PM</b>"
+  ,"July 2016
+{$wemt} 9th&nbsp; 6pm
+{$weyg} 9th 1-4PM/24th 2-5PM"
+  ,"August 2016
+{$weoh} 6th&nbsp; <s>4-9PM</s> <b style=\"color: orangered;\">10AM-7PM</b>
+{$wemt} 13th 6pm
+<b style=\"color: orangered;\">Work day 20th 2-5PM</b>
+{$weyg} <s>6th</s> <b style=\"color: orangered;\">13th</b> 1-4PM/<s>21st</s> <b style=\"color: orangered;\">28th</b> 2-5PM"
+  ,"September 2016
+{$weoh} 3rd&nbsp; <s>4-9PM</s> <b style=\"color: orangered;\">10AM-7PM</b>
+{$wemt} 10th 6pm
+<b style=\"color: orangered;\">Work day 17th 2-5PM</b>
+{$weyg} <s>3rd/17th</s> <b style=\"color: orangered;\">10th</b> 1-4PM
+{$weyg} 25th 2-5PM"
+  ,"October 2016
+{$weoh} 1st&nbsp; 10AM-7PM
+{$wemt} 8th&nbsp; 6pm
+Work day 15th 4-7PM
+{$weyg} 8th/15th 1-4PM
+{$weyg} 23rd/30th 2-5PM"
+  ,"November 2016
+{$wemt} <b style=\"color: orangered;\">5th</b>&nbsp; 6pm
+Work day 19th 2-5PM
+{$weyg} 5th 1-4PM
+{$weyg} 27th 2-5PM"
+  ,"December 2016
+{$weoh} 3rd&nbsp; 10AM-7PM
+{$wemt}/Christmas Party 10th <b style=\"color: orangered;\">5pm</b>
+{$weyg} 10th/17th 1-4PM"
+
+  ,"January 2017
+Work day 7th&nbsp; 2-5PM
+{$wemt} 14th 6pm
+{$weyg} 14th 1-4PM
+Open House/JanBoree<br>20th 4-9pm / 21st 10am-7pm / 22nd 10am-5pm
+Banquet&nbsp; 28th 5pm<br>at Lions Club in Big Bend"
+
+  ,"February 2017
+{$wemt} 11th 6pm
+{$weyg} 11th 1-4PM
+Work day 18th 2-5PM
+{$weyg} 26th 2-5PM"
+
+  ,"March 2017
+{$weoh} 4th&nbsp; 10AM-7PM
+{$wemt} 11th 6pm
+{$weyg} 11th 1-4PM
+Work day 18th 2-5PM
+{$weyg} 26th 2-5PM"
+
+  ,"April 2017
+{$wemt} 8th&nbsp; 6pm
+{$weyg} 8th 1-4PM
+Work day 22nd 2-5PM
+{$weyg} 30th 2-5PM"
+
+  ,"May 2017
+{$weoh} 6th&nbsp; 10AM-7PM
+{$wemt} 13th 6pm
+{$weyg} 13th 1-4PM
+Work day 20th 2-5PM"
+
+  ,"June 2017
+{$weyg} 3rd&nbsp; 1-4PM
+Work day 10th 2-5PM
+{$wemt} 10th 6pm
+<span style=\"color: orangered; font-weight: bold;\">{$weoh}</span> 17th 10AM-7PM 
+{$weyg} 25th 2-5PM"
+
+  ,"July 2017
+{$wemt} 8th&nbsp; 6pm
+{$weyg} 8th&nbsp; 1-4PM
+Work day 15th 2-5PM
+{$weyg} 23rd 2-5PM"
+
+  ,"August 2017
+{$weoh} 5th&nbsp; 10AM-7PM
+{$wemt} 12th 6pm
+{$weyg} 12th 1-4PM
+Work day 19th 2-5PM
+{$weyg} 27th 2-5PM"
+
+  ,"September 2017
+{$weoh} 2nd&nbsp; 10AM-7PM
+{$wemt} 9th&nbsp; 6pm
+{$weyg} 9th&nbsp; 1-4PM
+Work day 16th 1-4PM
+{$weyg} 24th 2-5PM"
+
+  ,"October 2017
+{$weoh} 7th&nbsp; 10AM-7PM
+{$wemt} 14th 6pm
+{$weyg} 14th 1-4PM
+{$weyg} 21st 1-4PM
+Work day 21st 4-7PM
+{$weyg} 29th 2-5PM"
+
+  ,"November 2017
+{$wemt} <span style=\"color: orangered; font-weight: bold;\">4th</span>&nbsp; 6pm
+{$weyg} 4th&nbsp; 1-4PM
+{$weyg} 18th 1-4PM
+Work day 18th 4-7PM
+{$weyg} 26th 2-5PM"
+
+  ,"December 2017
+{$weoh} 2nd&nbsp; 10AM-7PM
+{$weyg} 9th&nbsp; 1-4PM
+{$wemt}/Christmas Party 9th&nbsp; <b style=\"color: orangered;\">5pm</b>
+{$weyg} 31st 2-5PM"
+
+  ,"January 2018
+Work day 6th&nbsp; 2-5PM
+{$wemt} 13th 6pm
+{$weyg} 13th 1-4PM
+Banquet&nbsp; 20th 5pm<br>at Lions Club in Big Bend
+Open House/JanBoree<br>26th 4-9pm / 27th 10am-7pm / 28th 10am-5pm"
+
+  ,"February 2018
+{$wemt} 10th 6pm
+{$weyg} 10th 1-4PM
+Work day 17th 2-5PM
+{$weyg} 25th 2-5PM"
+
+  ,"March 2018
+{$weoh} 3rd&nbsp; 10AM-7PM
+{$wemt} 10th 6pm
+{$weyg} 10th 1-4PM
+Work day 17th 2-5PM
+{$weyg} 25th 2-5PM"
+
+  ,"April 2018
+{$wemt} 14th&nbsp; 6pm
+{$weyg} 14th 1-4PM
+Work day 21st 2-5PM
+{$weyg} 29th 2-5PM"
+
+  ,"May 2018
+{$weoh} 5th&nbsp; 10AM-7PM
+{$wemt} 12th 6pm
+{$weyg} 12th 1-4PM
+Work day 19th 2-5PM
+{$weyg} 27th 2-5PM"
+
+  ,"June 2018
+<b style=\"color: orangered;\">{$weoh} 2nd&nbsp; 10AM-7PM</b>
+{$wemt} 9th&nbsp; 6pm
+{$weyg} 9th&nbsp; 1-4PM
+TBD 16th 
+{$weyg} 24th 2-5PM"
+
+  ,"July 2018
+{$wemt} 14th&nbsp; 6pm
+{$weyg} 14th&nbsp; 1-4PM
+Work day 21st 2-5PM
+{$weyg} 29th 2-5PM"
+
+  ,"August 2018
+{$weoh} 4th&nbsp; 10AM-7PM
+{$wemt} 11th 6pm
+{$weyg} 11th 1-4PM
+{$weyg} 18th 1-4PM
+Work day 18th 4-7PM
+{$weyg} 26th 2-5PM"
+
+  ,"September 2018
+{$weoh} 1st&nbsp; 10AM-7PM
+{$wemt} 8th&nbsp; 6pm
+{$weyg} 8th&nbsp; 1-4PM
+Work day 15th 1-4PM
+{$weyg} 23rd 2-5PM"
+
+  ,"October 2018
+{$weoh} 6th&nbsp; 10AM-7PM
+{$wemt} 13th 6pm
+{$weyg} 13th 1-4PM
+{$weyg} 20th 1-4PM
+Work day 20th 4-7PM
+{$weyg} 28th 2-5PM"
+
+  ,"November 2018
+{$wemt} <span style=\"color: orangered; font-weight: bold;\">3rd</span>&nbsp; 6pm
+{$weyg} 3rd&nbsp; 1-4PM
+{$weyg} 17th 1-4PM
+Work day 17th 4-7PM
+{$weyg} 25th 2-5PM"
+
+  ,"December 2018
+{$weoh} 1st&nbsp; 10AM-7PM
+{$weyg} 8th&nbsp; 1-4PM
+{$wemt}/Christmas Party 8th&nbsp; <b style=\"color: orangered;\">4pm</b>
+{$weyg} 30th 2-5PM"
+
+  ,"January 2019
+{$wewd} 5th&nbsp; 2-5PM
+{$wemt} 12th 6PM
+{$weyg} 12th 1-4PM
+Banquet&nbsp; 19th 5pm<br>at Lions Club in Big Bend
+Open House/JanBoree<br>25th 4-9pm / 26th 10am-7pm / 27th 10am-5pm"
+
+  ,"February 2019
+{$wemt} 9th&nbsp; 6pm
+{$weyg} 9th&nbsp; 1-4PM
+{$wewd} 16th 2-5PM
+{$weyg} 24th 2-5PM"
+
+  ,"March 2019
+{$weoh} 2nd&nbsp; 10AM-7PM
+{$wemt} 9th&nbsp; 6pm
+{$weyg} 9th&nbsp; 1-4PM
+{$wewd} 16th 2-5PM
+{$weyg} 24th 2-5PM"
+
+  ,"April 2019
+{$wewd} 6th&nbsp; 2-5PM
+{$wemt} 13th 6pm
+{$weyg} 13th 1-4PM
+{$weyg} 28th 2-5PM"
+
+  ,"May 2019
+{$weoh} 4th&nbsp; 10AM-7PM
+{$wemt} 11th 6pm
+{$weyg} 11th 1-4PM
+{$wewd} 18th 2-5PM"
+
+  ,"June 2019
+{$weyg} 2nd&nbsp; 2-5PM
+{$wemt} 8th&nbsp; 6pm
+{$weyg} 8th&nbsp; 1-4PM
+TBD 15th/22nd?
+{$weyg} 30th 2-5PM"
+
+  ,"July 2019
+{$wemt} 13th 6pm
+{$weyg} 13th 1-4PM
+{$wewd} 20th 2-5PM
+{$weyg} 28th 2-5PM"
+
+  ,"August 2019
+{$weoh} 3rd&nbsp; 10AM-7PM
+{$wemt} 10th 6pm
+{$weyg} 10th 1-4PM
+{$weyg} 17th 1-4PM
+{$wewd} 17th 4-7PM
+{$weyg} 25th 2-5PM"
+
+  ,"September 2019
+{$weyg} 1st&nbsp; 2-5PM
+{$weoh} 7th&nbsp; 10AM-7PM
+{$wemt} 14th 6pm
+{$weyg} 14th 1-4PM
+{$wewd} 21st 2-5PM
+{$weyg} 28th 2-5PM"
+
+  ,"October 2019
+{$weoh} 5th&nbsp; 10AM-7PM
+{$wemt} 12th 6pm
+{$weyg} 12th 1-4PM
+{$weyg} 19th 1-4PM
+{$wewd} 19th 4-7PM
+{$weyg} 27th 2-5PM"
+
+  ,"November 2019
+{$wemt} <b style=\"color: orangered;\">2nd</b>&nbsp; 7pm
+{$weyg} 2nd&nbsp; 1-4PM
+{$weyg} 16th 1-4PM
+{$wewd} 23rd 2-5PM"
+
+  ,"December 2019
+{$weyg} 1st&nbsp; 2-5PM
+{$weoh} 7th&nbsp; 10AM-7PM
+{$wemt}/Christmas Party 14th <b style=\"color: orangered;\">5pm</b>
+{$weyg} 14th 1-4PM
+{$weyg} <b style=\"color: orangered;\">28th</b> 1-4PM"
+
+  ,"January 2020
+{$wewd}4th&nbsp; 2-5PM
+{$weyg}5th&nbsp; 2-5PM
+{$wemt}11th 7pm
+{$weyg}11th 1-4PM
+Open House/JanBoree<br>17th 4-9PM / 18th 10AM-7PM / 19th 10AM-5PM
+Open House/JanBoree<br>24th 4-9PM / 25th 10AM-7PM / 26th 10AM-5PM"
+
+  ,"February 2020
+Banquet&nbsp; 1st&nbsp; 5pm<br>at Lions Club in Big Bend
+{$weyg}2nd&nbsp; 2-5PM
+{$wemt}8th&nbsp; 7pm
+{$weyg}8th&nbsp; 1-4PM
+{$wewd}15th 2-5PM
+{$weyg}23rd 2-5PM"
+
+  ,"March 2020
+{$weyg}1st&nbsp; 2-5PM
+{$weoh}7th&nbsp; 10AM-7PM
+{$wemt}14th 7pm
+{$weyg}14th 1-4PM
+{$wewd}21st 2-5PM
+{$weyg}29th CANCELLED"
+
+  ,"April 2020
+{$wemt}<b style=\"color: orangered;\">4th</b>&nbsp; CANCELLED
+{$weyg}4th&nbsp; CANCELLED
+{$wewd}18th CANCELLED
+{$weyg}26th CANCELLED"
+
+  ,"May 2020
+{$weoh}2nd&nbsp; CANCELLED
+{$wemt}9th&nbsp; CANCELLED
+{$weyg}9th&nbsp; CANCELLED
+{$wewd}16th CANCELLED
+{$weyg}31st CANCELLED"
+
+  ,"June 2020
+Metra ride&nbsp; 6th&nbsp; CANCELLED
+{$wemt}13th 7pm
+{$weyg}13th 1-4PM
+{$wewd}20th 2-5PM
+{$weyg}28th 2-5PM"
+
+  ,"July 2020
+{$wemt}11th 7pm
+{$weyg}11th 1-4PM
+{$wewd}18th 2-5PM
+{$weyg}26th 2-5PM"
+
+  ,"August 2020
+{$weoh}1st&nbsp; CANCELLED
+{$wemt}8th&nbsp; 7pm
+{$weyg}8th&nbsp; CANCELLED
+{$weyg}15th CANCELLED
+{$wewd}15th 4-7PM
+{$weyg}23rd CANCELLED
+{$weyg}30th CANCELLED"
+
+  ,"September 2020
+{$weoh}5th&nbsp; CANCELLED
+{$wemt}12th 7pm
+{$weyg}12th 1-4PM
+{$weyg}19th 1-4PM
+{$wewd}19th 4-7PM
+{$weyg}27th 2-5PM"
+
+  ,"October 2020
+{$weoh}3rd&nbsp; CANCELLED
+{$wemt}10th 7pm
+{$weyg}10th 1-4PM
+{$weyg}17th 1-4PM
+{$wewd}17th 4-7PM
+{$weyg}25th 2-5PM"
+
+  ,"November 2020
+{$weyg}1st&nbsp; 2-5PM
+{$wemt}<span style=\"color: orangered; font-weight: bold;\">7th</span>&nbsp; 7pm
+{$weyg}7th&nbsp; 1-4PM
+{$weyg}21st 1-4PM
+{$wewd}21st 4-7PM
+{$weyg}29th 2-5PM"
+
+  ,"December 2020
+{$weoh}5th&nbsp; CANCELLED
+{$wemt}12th 7pm
+{$weyg}12th 1-4PM
+{$weyg}27th 2-5PM"
+
+  ,"January 2021
+Open House/JanBoree CANCELLED
+{$wemt}9th 7pm
+{$weyg}9th 1-4PM
+{$wewd}16th 2-5PM
+{$weyg}17th 2-5PM"
+
+  ,"February 2021
+Banquet&nbsp; 6th&nbsp; CANCELLED
+{$wemt}13th 7pm
+{$weyg}13th 1-4PM
+{$wewd}20th 2-5PM
+{$weyg}28th 2-5PM"
+
+  ,"March 2021
+{$wemt}13th 7pm
+{$weyg}13th 1-4PM
+{$wewd}20th 2-5PM
+{$weyg}28th 2-5PM"
+
+  ,"April 2021
+{$wemt}10th 7pm
+{$weyg}10th 1-4PM
+{$wewd}17th 2-5PM
+{$weyg}25th 2-5PM"
+
+  ,"May 2021
+{$wemt}8th&nbsp; 7pm
+{$weyg}8th&nbsp; 1-4PM
+{$wewd}15th 2-5PM
+{$weyg}<s>23rd</s> 30th 2-5PM"
+
+  ,"June 2021
+{$wewd}5th&nbsp; 2-5PM
+{$wemt}12th 7pm
+{$weyg}12th 1-4PM
+{$wewd}19th 2-5PM
+{$weyg}27th 2-5PM"
+
+  ,"July 2021
+{$wewd}3rd&nbsp; 2-5PM
+{$wemt}10th 7pm
+{$weyg}10th 1-4PM
+{$wewd}17th 2-5PM
+{$weyg}25th 2-5PM"
+
+  ,"August 2021
+{$weoh}7th&nbsp; 10AM-6PM
+{$wemt}14th 7pm
+{$weyg}14th 1-4PM
+{$wewd}21st 4-7PM
+{$weyg}21st 1-4PM
+{$weyg}29th 2-5PM"
+
+  ,"September 2021
+{$wewd}4th&nbsp; 2-5PM
+{$weyg}5th&nbsp; 2-5PM
+{$wemt}11th 7pm
+Youth Group layout at Fall Harvest Days<br>10th ?/11th ?/12th ?
+{$wewd}18th 4-7PM
+{$weyg}18th 1-4PM
+{$weyg}26th 2-5PM"
+
+  ,"October 2021
+{$weoh}2nd&nbsp; 10AM-6PM
+{$wemt}9th&nbsp; 7pm
+{$weyg}9th&nbsp; 1-4PM
+{$wewd}16th 4-7PM
+{$weyg}16th 1-4PM
+{$weyg}23rd 1-4PM
+{$weyg}31st 2-5PM"
+
+  ,"November 2021
+{$wemt}6th&nbsp; 7pm
+{$weyg}6th&nbsp; 1-4PM
+{$weoh}13th 10AM-6PM
+{$wewd}20th 4-7PM
+{$weyg}20th 1-4PM"
+
+  ,"December 2021
+{$weoh}4th&nbsp; 10AM-6PM
+{$wemt}/Christmas party 11th <b style=\"color: orangered;\">5pm</b>
+{$weyg}11th 1-4PM
+{$wewd}18th 2-5PM
+{$weyg}26th 2-5PM"
+
+  );
+
+} // end of beta.3 changes
+
+// next: break up the data, and compare the dates
+$wcgd_dcount = count($wcgd_cal_data);
+for ($wcgd_counter = 1; $wcgd_counter <= $wcgd_dcount; $wcgd_counter++) {
+  $wcgd_cal_data1 = explode("
+", $wcgd_cal_data[$wcgd_counter]);
+  // convert date
+  $wcgd_cmo = date("F",strtotime($wcgd_cal_data1[0]));
+  $wcgd_cyr = date("Y",strtotime($wcgd_cal_data1[0]));
+  if ($wcgd_cmo == $wcgd_cal_motoday AND $wcgd_cyr == $wcgd_cal_yrtoday) {
+    // old version, cleaned up and modified 2018-11-06
+    /* $wcgd_cal_thismonth = "        <p><font size=\"5\" color=\"#00ff33\"><u>THIS MONTH:</u></font></p>
+        <p><font size=\"4\" style=\"text-transform: uppercase; font-style: italic;\">{$wcgd_cmo}</font><br></p>
+"; */
+    if ($wcgd_cmo == "December") {
+      $wcgd_cmy = $wcgd_cyr + 1;
+      $wcgd_cmy = " ".$wcgd_cmy;
+    }
+    $wcgd_cal_thismonth = "        <p><font size=\"5\" style=\"text-transform: uppercase; font-style: italic;\">{$wcgd_cmo}</font><br></p>
+";
+    $wcgd_ccount = count($wcgd_cal_data1) - 1;
+    for ($wcgd_counter1 = 1; $wcgd_counter1 <= $wcgd_ccount; $wcgd_counter1++) {
+      $wcgd_cal_thismonth .= "        <p><font size=\"4\" color=\"#00ff00\">{$wcgd_cal_data1[$wcgd_counter1]}</font></p>
+";
+    }
+    // now we do "nextmonth", which has similar steps but is slightly simpler
+    if ($wcgd_counter == $wcgd_dcount) {
+      $wcgd_cal_nextmonth = "";
+    } else {
+      $wcgd_counter++;
+      $wcgd_cal_data1 = explode("
+", $wcgd_cal_data[$wcgd_counter]);
+      $wcgd_cmo = date("F",strtotime($wcgd_cal_data1[0]));
+      $wcgd_cal_nextmonth = "        <p><font size=\"5\" color=\"#00ff00\"><u>Next month:</u></font></p>
+        <p><font size=\"4\" style=\"text-transform: uppercase; font-style: italic;\">{$wcgd_cmo}{$wcgd_cmy}</font> <br></p>
+";
+      $wcgd_ccount = count($wcgd_cal_data1) - 1;
+      for ($wcgd_counter1 = 1; $wcgd_counter1 <= $wcgd_ccount; $wcgd_counter1++) {
+        $wcgd_cal_nextmonth .= "        <p><font size=\"4\" color=\"#00ff00\">{$wcgd_cal_data1[$wcgd_counter1]}</font></p>
+";
+      }
+    }
+    // and shove the counter past the dcount to kill the for loop
+    $wcgd_counter = $wcgd_dcount + 1;
+  } elseif ($wcgd_counter == $wcgd_dcount) {
+    // no current calendar data
+    $wcgd_cal_thismonth = "        <p><font size=\"5\" style=\"color: orangered; font-style: italic;\">No current data found.</font></p><!-- {$wcgd_dcount} -->";
+  }
+}
+// end calendar At-A-Glance
+
+?>   <!--area Type="subhead" class="user subhead"-->
+   <div xmlns:local="local" class="user subhead">
+      
+<?
+// News marquee v0.2.1b1 by Fuzzy
+// This is set up to appear only until the specified date, then it goes away!
+# 0.1.0 original HTML marquee, announced new layout for WAY too long
+# 0.2.0 2012-01-20 PHP>HTML marquee, announced a weather alert for JanBoree 2012
+# 0.2.1 2012-01-20 variables added to allow easier changes
+# 0.2.1a 2012-02-09 might help if I used "strtotime" rather than "date" for the comparison so the marquee actually disappears... fixed!
+# 0.2.1b 2012-02-09 "now" replaces "today" since the latter wasn't getting the job done.
+# 0.2.1b1 2012-02-09 note added about server time relative to club time; might be worth figuring out how to dial back server time by an hour, both for the marquee and for the AAG calendar.
+# future: set up flat file "database" and easy UI to update, with test data option so new "users" can try it out
+# future: make this application a separate file so it may be used on multiple pages
+
+// INSTRUCTIONS:
+// $wcgd_marq_date is the date that the message disappears
+// $wcgd_marq_mess is the message.  If you want quotation marks displayed, use "&quot;".  If you use quote marks (") for an attribute, 
+  // they must be preceded by a \ or the page won't load!
+// $wcgd_people_mess may be disregarded. 8-)
+
+$wcgd_marq_date = "September 15, 2021"; // message is no longer displayed as of this date!  (Note that server time is actually Eastern Time Zone, so it's an hour ahead of us.)
+$wcgd_marq_mess = "Open Houses are BACK!!!&nbsp; We'll be open to the public starting in August!";
+$wcgd_people_mess = "Russell";
+
+if (strtotime("now") < strtotime($wcgd_marq_date)) {
+  echo "      <p><marquee style=\"border: 1px dotted green; background-color: yellow; color: green; font-family: Tahoma,Verdana,Geneva,sans-serif; font-style: normal; font-variant: small-caps; font-weight: bold; font-size: 22px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none;\">{$wcgd_marq_mess}</marquee>
+     </p>
+";
+  // additional data for 2017 construction alert
+  $wcgd_marq_c1 = 0;
+}
+// more additional data for 2017 construction alert
+$wcgd_marq_const[0] = "Donations are welcome and always appreciated.&nbsp;";
+$wcgd_marq_const[1] = "<span style=\"color: orange; font-size: 110%;\">Open during construction!&nbsp; Grand Avenue (in front of our clubhouse) is under construction -- and so is our main layout!&nbsp; Despite both projects, we ARE open for our regularly-scheduled events!&nbsp; Thank you for the extra effort to stop in and see us!</span>";
+?>      <p></p><div><p align="justify"><font size="4">Welcome to The Waukesha County Gandy Dancers Model Railroad Club's web site.&nbsp; In addition to our HO Scale layout, our clubhouse also hosts the WISE Div. NMRA Youth Group (see <a href="lwgg.html">Youth Group</a> page for more details).&nbsp; Our members have interests in other scales of trains, even full-size!</font></p>
+          <p align="justify"><font size="4">Our club house is handicap-accessible and we usually have a sign language interpreter at our meetings.</font></p>
+          <p align="justify"><font size="4">New members are welcome, <a href="contact.html<? echo $wcgd_vurl; ?>" title="Contact Us">Contact Us</a> for more information, or come check us out any time we are open.&nbsp; Our meetings are open to the public.&nbsp; Check out the
+         upcoming events for more info.&nbsp;</font> <br><!--"''"--></p></div>
+      <p></p>
+      <p></p><hr size="2" color="white" noshade="noshade"><!--"''"--><p></p>
+      <p></p><div><p align="center"><font color="#66ff00"><strong><font size="5" face="tahoma,arial,helvetica,sans-serif">EVENTS AT-A-GLANCE<br><font size="2"><font color="#ffff00">(more <a href="events.html<? echo $wcgd_vurl; ?>" title="Upcoming Events">Upcoming Events</a>)</font> </font><br></font></strong></font><!--"''"--></p></div>
+      <p></p>
+      <p><img alt="" src="files/cross4.gif" vspace="0" align="right" border="" hspace="5"></p>
+      <p><img alt="" src="files/cross4.gif" vspace="0" align="left" border="" hspace="5"></p>
+      <p></p>
+      <div>
+<? echo $wcgd_cal_thismonth."
+".$wcgd_cal_nextmonth; ?>      <font size="3"></font><!--"''"--></div>
+      <p></p>
+   </div>
+   <!--/area Type="subhead"-->
+   <!--area Type="main" class="user main"-->
+   <div xmlns:local="local" class="user main">
+      
+      <p></p><div><!-- <font size="2"></font><font size="2">We have regular open houses the 1st Saturday of every month except in January (we
+         are open the 3rd weekend -- Fri-Sat-Sun -- during Waukesha Jan-Boree) and November (we take our layout
+         to TRAINFEST the 2nd weekend Sat-Sun).</font>
+         <p style="text-align: center;">Please note that our Open House schedule has changed somewhat since 2012:<br>
+           &bull; We are open for the <a href="http://www.janboree.org/">Waukesha JanBoree</a> the third weekend (Fri/Sat/Sun) of January<br>
+           &bull; We are open the first Saturday of March, May, August, October, and December to coincide with the <a href="http://www.waukeshaart.com/">Art Crawl</a><br> -->
+<!--           &bull; We are open Friday evenings Memorial Day through September during Freeman Friday Night Live (see note at top of page)<br>
+           &bull; We and our layout go to Trainfest, at State Fair Park, the second weekend (Sat/Sun) in November
+           &bull; <span style="font-weight: bold;">Note that we will not be at Trainfest 2015/2016!</span>&nbsp; We are working on some changes to our layout and our participation in Trainfest for 2017 and beyond.</p> -->
+         <p><font size="2"><? echo $wcgd_marq_const[$wcgd_marq_c1]; ?>
+         </font><!--"''"--></p></div>
+      <p></p>
+      
+      <p></p><div><b style="font-size: 125%; color: orangered; text-decoration: blink;">STILL AVAILABLE!</b><br>We still have some of our 25th Anniversary cars available, <span style="color: orangered;">$15</span> each or six for <span style="color: orangered;">$75</span>.<br>Please <a href="contact.html">Contact Us</a> for information on purchasing these cars!<!-- As you can see below we don't just play with the little trains.&nbsp; We have many members that like to go on 'Railfanning'
+         trips, among many other things we do together as a club.<br><br>Be sure to get in touch to offer comments and join
+         our mailing list."''" --></div>
+      <p></p>
+      
+   </div>
+   <!--/area Type="main"-->
+   <!--area Type="area_a" class="user area_a"-->
+   <div xmlns:local="local" class="user area_a">
+      
+      <div style="text-align: left;">
+         <table border="0" cellpadding="0" cellspacing="0" align="center">
+            <tbody><tr>
+<!--               <td width="240" align="center" background="files/spacer.gif"><span style="font-size: 10px;"><font color="bisque">Jeff, Randy, Rich, Don</font></span></td>
+            </tr>
+            <tr>
+               <td align="center" background="files/spacer.gif"><img alt="Jeff, Randy, Rich and Don at hand cart race" src="index_files/Picture5.jpg" vspace="0" width="240" border="" hspace="0"><br></td>
+            </tr>
+            <tr>
+               <td width="240" align="center" background="files/spacer.gif"><span style="font-size: 10px;"><span style="color: bisque;">Club members at hand cart race 2005<span></span></span></span></td>
+-->
+        <td width="600" align="center" background="files/spacer.gif"><img alt="WCGD 25th Anniversary box car by Accurail" src="files/wcgd2010.jpg" width=600 border="0" vspace="0" hspace="0"></td>
+      </tr>
+      <tr>
+        <td align="center" width="600" background="files/spacer.gif"><span style="font-size: 10px; color: bisque;">WCGD 25th Anniversary 40' boxcar<br>Custom run by <a href="http://www.accurail.com/">Accurail</a></td>
+            </tr>
+         </tbody></table>
+      </div>
+      
+   </div>
+   <!--/area Type="area_a"-->
+   	
+   <!--area Type="area_b" class="user area_b"-->
+   <div xmlns:local="local" class="user area_b">
+      
+      <p></p><div>Check out our upcoming events page and bulletin board to find out about our&nbsp;busy schedule that is filled with fun<!--"''"--></div><p></p>
+      
+   </div>
+   <!--/area Type="area_b"-->
+   	
+   <!--area Type="area_c" class="user area_c"-->
+<?
+echo $wcgd_sc;
+?>   <!--/area Type="area_c"--><?
+echo $wcgd_footer;
+?>

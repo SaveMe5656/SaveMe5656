@@ -1,0 +1,560 @@
+<?
+$wcgd_title = "Youth Group";
+$wcgd_heading = "Youth Group";
+$wcgd_cssadds = "    .caption { font: 11px Verdana,Geneva,sans-serif; color: bisque; text-align: center; }
+";
+$wcgd_headerv = 2;
+include("files/header.inc");
+
+// Random image/caption script, based on random ad script; created 1/19/08, modified for use on Youth Group page 2014-11-16
+
+// array data
+$ri_i = array("IMG_1058.jpg","IMG_20120922_144741.jpg","IMG_20130727_155609.jpg","20140208_142914.jpg","IMG_20130504_174250.jpg","IMG_20131012_135333.jpg");
+$ri_t = array("&quot;getting on track&quot;","yard rebuild","scenery diorama w/scratchbuilt building","getting a new module ready","WISE Meet winner","module progress");
+$ri_d = array("500x300","500x375","500x300","500x300","500x350","400x400");
+$ri_g = array("Youth Group Coordinator Mark Hintz consults with member Jaden on getting a freight car on the track."
+  ,"Youth Group member Trevor helps rebuild a yard module."
+  ,"Youth Group member Nick built his scenery diorama to include a scratchbuilt structure."
+  ,"Youth Group member Reece and his mom paint the surface of his new module."
+  ,"Youth Group member Sydney poses with the structure she built and entered in the contest at<br> the WISE Meet, for which she won first place.&nbsp; Her rebuilt module still needs some scenery!"
+  ,"Youth Group member Jaden and his dad make progress on Jaden's new module.&nbsp; (Nick's new<br>module is ready for more progress in the background.)"
+);
+
+$ri_maxphotos = 4; // maximum number of photos on the page
+if ($ri_maxphotos > count($ri_i)) {
+  $ri_maxphotos = count($ri_i);
+}
+// loop to fill and rearrange data
+for ($ri_for = 1; $ri_for <= $ri_maxphotos; $ri_for++) {
+  $ri_mp2 = count($ri_i) - 1;
+  $ri_num = rand(0, $ri_mp2);
+  $ri_dim = explode("x",$ri_d[$ri_num]); // dimensions array
+  $lwgg_photo[$ri_for] = "<center class=\"caption\">
+        <img src=\"lwgg/{$ri_i[$ri_num]}\" width={$ri_dim[0]} height={$ri_dim[1]} border=0 alt=\"{$ri_t[$ri_num]}\"><br>
+        {$ri_g[$ri_num]}
+      </center>
+";
+
+  unset($ri_i[$ri_num],$ri_t[$ri_num],$ri_d[$ri_num],$ri_g[$ri_num]);
+  $ri_i = array_values($ri_i);
+  $ri_t = array_values($ri_t);
+  $ri_d = array_values($ri_d);
+  $ri_g = array_values($ri_g);
+}
+
+?>   <!--area Type="subhead" class="user subhead"-->
+   <div xmlns:local="local" class="user subhead">
+      
+      <p></p><div align="center"><font size="4" face="verdana,geneva">In addition to our main layout, we also have a modular layout that is primarily used for our youth group.</font> &nbsp; <!--"''"--></div>
+      <p></p>
+      <? echo $lwgg_photo[1]; ?>
+   </div>
+   <!--/area Type="subhead"-->
+   <!--area Type="main" class="user main"-->
+   <div xmlns:local="local" class="user main">
+      
+      <p></p>
+      <div>
+        <div align="center"><font size="4"><em><font face="verdana,geneva">Meetings / Work Sessions</font></em></font><br><!--  -->
+
+<? 
+
+// 2014
+$cyos = "          <font size=\"4\" style=\"color: #00ff00; font-family: Verdana,Geneva,sans-serif;\">"; // year start
+$cmos = "          <font size=\"3\" style=\"color: #00ff00; font-family: Verdana,geneva,sans-serif;\">"; // month start
+$clis = "          <font size=\"2\" style=\"font-family: Verdana,Geneva,sans-serif;\">"; // line start
+$ceol = "</font><br>"; // end of line
+$ceom = "          <font size=\"2\" face=\"verdana,geneva\">&nbsp;</font><br><br>"; // end of month
+ 
+$weoh = "WCGD Open House";
+$wemt = "Meeting";
+$weyg = "meeting @WCGD";
+$weys = "(Sunday) meeting @WCGD";
+$wewm = "WISE Div Meet @Best Western Plus Midway Hotel 1005 S. Moorland Rd. Brookfield"; // don't use any more
+$wewm2 = "WISE Div Meet @Midway Hotel &amp; Suites 1005 S. Moorland Rd. Brookfield";
+$wewc = "WISE Div Meet @Country Springs Hotel 2810 Golf Rd. Pewaukee";
+$wewb = "WISE Div Meet @Veterans Terrace 589 Milwaukee Ave. Burlington";
+$weww = "WISE Div Meet @Wash. Co. Fairgrounds 3000 Pleasant Valley Rd. West Bend";
+$wewr = "WISE Div Meet @Roma Lodge 7130 Spring St./CTH-C Racine";
+$wewf = "WISE Div Meet @Four Points Hotel 5311 S. Howell Ave. Milwaukee";
+
+// disappearing dates (from Events)
+$wcgd_ddate = strtotime("now");
+
+// disappearing 2017 dates
+if ($wcgd_ddate > strtotime("June 30, 2017")) {
+  if ($wcgd_ddate > strtotime("January 31, 2018")) {
+    $wcgd_dcmqa = "<!-- ";
+    $wcgd_dcmqz = " -->";
+  } else {
+    $wcgd_dcmq0 = "<!-- ";
+    if ($wcgd_ddate > strtotime("October 31, 2017")) {
+      $wcgd_dcmq3 = " -->";
+    } elseif ($wcgd_ddate > strtotime("August 31, 2017")) {
+      $wcgd_dcmq2 = " -->";
+    } else {
+      $wcgd_dcmq1 = " -->";
+    }
+  }
+}
+// disappearing 2018 dates
+if ($wcgd_ddate > strtotime("June 30, 2018")) {
+  if ($wcgd_ddate > strtotime("January 31, 2019")) {
+    $wcgd_dcmra = "<!-- ";
+    $wcgd_dcmrz = " -->";
+  } else {
+    $wcgd_dcmr0 = "<!-- ";
+    if ($wcgd_ddate > strtotime("October 31, 2018")) {
+      $wcgd_dcmr3 = " -->";
+    } elseif ($wcgd_ddate > strtotime("August 31, 2018")) {
+      $wcgd_dcmr2 = " -->";
+    } else {
+      $wcgd_dcmr1 = " -->";
+    }
+  }
+}
+// disappearing 2019 dates
+if ($wcgd_ddate > strtotime("June 30, 2019")) {
+  if ($wcgd_ddate > strtotime("January 31, 2020")) {
+    $wcgd_dcmsa = "<!-- ";
+    $wcgd_dcmsz = " -->";
+  } else {
+    $wcgd_dcms0 = "<!-- ";
+    if ($wcgd_ddate > strtotime("October 31, 2019")) {
+      $wcgd_dcms3 = " -->";
+    } elseif ($wcgd_ddate > strtotime("August 31, 2019")) {
+      $wcgd_dcms2 = " -->";
+    } else {
+      $wcgd_dcms1 = " -->";
+    }
+  }
+}
+// disappearing 2020 dates
+if ($wcgd_ddate > strtotime("June 30, 2020")) {
+  if ($wcgd_ddate > strtotime("January 31, 2021")) {
+    $wcgd_dcmta = "<!-- ";
+    $wcgd_dcmtz = " -->";
+  } else {
+    $wcgd_dcmt0 = "<!-- ";
+    if ($wcgd_ddate > strtotime("October 31, 2020")) {
+      $wcgd_dcmt3 = " -->";
+    } elseif ($wcgd_ddate > strtotime("August 31, 2020")) {
+      $wcgd_dcmt2 = " -->";
+    } else {
+      $wcgd_dcmt1 = " -->";
+    }
+  }
+}
+// disappearing 2021 dates
+if ($wcgd_ddate > strtotime("June 30, 2021")) {
+  if ($wcgd_ddate > strtotime("January 31, 2022")) {
+    $wcgd_dcmua = "<!-- ";
+    $wcgd_dcmuz = " -->";
+  } else {
+    $wcgd_dcmu0 = "<!-- ";
+    if ($wcgd_ddate > strtotime("October 31, 2021")) {
+      $wcgd_dcmu3 = " -->";
+    } elseif ($wcgd_ddate > strtotime("August 31, 2021")) {
+      $wcgd_dcmu2 = " -->";
+    } else {
+      $wcgd_dcmu1 = " -->";
+    }
+  }
+}
+
+echo "
+{$wcgd_dcmqa}{$cyos}2017{$ceol}
+{$wcgd_dcmq0}{$cmos}January{$ceol}
+{$clis}14th {$weyg} 1-4PM{$ceol}
+{$clis}20th (4-9pm) / 21st (10am-7pm) / 22nd (10am-5pm) {$weoh}{$ceol}
+{$clis}28th WCGD Banquet @Lions Club Big Bend 5pm{$ceol}
+{$ceom}
+
+{$cmos}February{$ceol}
+{$clis}11th {$weyg} 1-4PM{$ceol}
+{$clis}26th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}March{$ceol}
+{$clis}4th {$weoh} 10AM-7PM{$ceol}
+{$clis}11th {$weyg} 1-4PM{$ceol}
+{$clis}26th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmq1}
+
+{$cmos}April{$ceol}
+{$clis}8th {$weyg} 1-4PM{$ceol}
+{$clis}30th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}May{$ceol}
+{$clis}6th {$weoh} 10AM-7PM{$ceol}
+{$clis}13th {$weyg} 1-4PM{$ceol}
+{$ceom}
+
+{$cmos}June{$ceol}
+{$clis}3rd {$weyg} 1-4PM{$ceol}
+{$clis}17th {$weoh} 10AM-7PM{$ceol}
+{$cdiv}25th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmq2}
+
+{$cmos}July{$ceol}
+{$clis}9th {$weys} 2-5PM{$ceol}
+{$clis}23rd {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}August{$ceol}
+{$clis}5th {$weoh} 10AM-7PM{$ceol}
+{$clis}13th {$weys} 2-5PM{$ceol}
+{$clis}27th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}September{$ceol}
+{$clis}2nd {$weoh} 10AM-7PM{$ceol}
+{$clis}9th {$weyg} 1-4PM{$ceol}
+{$clis}24th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmq3}
+
+{$cmos}October{$ceol}
+{$clis}7th {$weoh} 10AM-7PM{$ceol}
+{$clis}14th {$weyg} 1-4PM{$ceol}
+{$clis}21st {$weyg} 1-4PM{$ceol}
+{$clis}29th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}November{$ceol}
+{$clis}4th {$weyg} 1-4PM{$ceol}
+{$clis}18th {$weyg} 1-4PM{$ceol}
+{$clis}26th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}December{$ceol}
+{$clis}2nd {$weoh} 10AM-7PM{$ceol}
+{$clis}9th {$weyg} 1-4PM{$ceol}
+{$clis}9th WCGD Christmas Party 5pm{$ceol}
+{$clis}31st {$weyg} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmqz}
+
+{$wcgd_dcmra}{$cyos}2018{$ceol}
+{$wcgd_dcmr0}{$cmos}January{$ceol}
+{$clis}13th {$weyg} 1-4PM{$ceol}
+{$clis}20th WCGD Banquet @Lions Club Big Bend 5pm{$ceol}
+{$clis}26th (4-9pm) / 27th (10am-7pm) / 28th (10am-5pm) {$weoh}{$ceol}
+{$ceom}
+
+{$cmos}February{$ceol}
+{$clis}10th {$weyg} 1-4PM{$ceol}
+{$clis}25th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}March{$ceol}
+{$clis}3rd {$weoh} 10AM-7PM{$ceol}
+{$clis}10th {$weyg} 1-4PM{$ceol}
+{$clis}25th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmr1}
+
+{$cmos}April{$ceol}
+{$clis}14th {$weyg} 1-4PM{$ceol}
+{$clis}29th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}May{$ceol}
+{$clis}5th {$weoh} 10AM-7PM{$ceol}
+{$clis}12th {$weyg} 1-4PM{$ceol}
+{$clis}27th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}June{$ceol}
+{$clis}<b style=\"color: orangered;\">2nd {$weoh} 10AM-7PM</b>{$ceol}
+{$clis}9th {$weyg} 1-4PM{$ceol}
+{$cdiv}24th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmr2}
+
+{$cmos}July{$ceol}
+{$clis}14th {$weyg} 1-4PM{$ceol}
+{$clis}29th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}August{$ceol}
+{$clis}4th {$weoh} 10AM-7PM{$ceol}
+{$clis}11th {$weyg} 1-4PM{$ceol}
+{$clis}18th {$weyg} 1-4PM{$ceol}
+{$clis}26th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}September{$ceol}
+{$clis}1st {$weoh} 10AM-7PM{$ceol}
+{$clis}8th {$weyg} 1-4PM{$ceol}
+{$clis}23rd {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmr3}
+
+{$cmos}October{$ceol}
+{$clis}6th {$weoh} 10AM-7PM{$ceol}
+{$clis}13th {$weyg} 1-4PM{$ceol}
+{$clis}20th {$weyg} 1-4PM{$ceol}
+{$clis}28th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}November{$ceol}
+{$clis}3rd {$weyg} 1-4PM&nbsp; (disassemble layout){$ceol}
+{$clis}9th setup @Trainfest 9am{$ceol}
+{$clis}10th / 11th Trainfest 9AM-5PM{$ceol}
+{$clis}17th {$weyg} 1-4PM&nbsp; (reassemble layout){$ceol}
+{$clis}25th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}December{$ceol}
+{$clis}1st {$weoh} 10AM-7PM{$ceol}
+{$clis}8th {$weyg} 1-4PM{$ceol}
+{$clis}8th WCGD Christmas Party 5pm{$ceol}
+{$clis}30th {$weyg} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmrz}
+
+{$wcgd_dcmsa}{$cyos}2019{$ceol}
+{$wcgd_dcms0}{$cmos}January{$ceol}
+{$clis}12th {$weyg} 1-4PM{$ceol}
+{$clis}19th WCGD Banquet @Lions Club Big Bend 5pm{$ceol}
+{$clis}20th {$wewf} 12:30-4PM{$ceol}
+{$clis}25th (4-9pm) / 26th (10am-7pm) / 27th (10am-5pm) {$weoh}{$ceol}
+{$ceom}
+
+{$cmos}February{$ceol}
+{$clis}9th {$weyg} 1-4PM{$ceol}
+{$clis}24th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}March{$ceol}
+{$clis}2nd {$weoh} 10AM-7PM{$ceol}
+{$clis}9th {$weyg} 1-4PM{$ceol}
+{$clis}17th WISE Div Meet @Oconomowoc Museum 103 W. Jefferson St. Oconomowoc{$ceol}
+{$clis}24th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcms1}
+
+{$cmos}April{$ceol}
+{$clis}13th {$weyg} 1-4PM{$ceol}
+{$clis}28th {$weys} 2-5PM{$ceol}
+{$clis}28th {$wewf} 12:30-4PM{$ceol}
+{$ceom}
+
+{$cmos}May{$ceol}
+{$clis}4th {$weoh} 10AM-7PM{$ceol}
+{$clis}11th {$weyg} 1-4PM{$ceol}
+{$ceom}
+
+{$cmos}June{$ceol}
+{$clis}2nd {$weys} 2-5PM{$ceol}
+{$clis}8th {$weyg} 1-4PM{$ceol}
+{$clis}30th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcms2}
+
+{$cmos}July{$ceol}
+{$clis}13th {$weyg} 1-4PM{$ceol}
+{$clis}28th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}August{$ceol}
+{$clis}3rd {$weoh} 10AM-7PM{$ceol}
+{$clis}10th {$weyg} 1-4PM{$ceol}
+{$clis}17th {$weyg} 1-4PM{$ceol}
+{$clis}25th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}September{$ceol}
+{$clis}1st {$weys} 2-5PM{$ceol}
+{$clis}7th {$weoh} 10AM-7PM{$ceol}
+{$clis}13th / 14th / 15th Fall Harvest Days 9AM-5PM{$ceol}
+{$clis}21st WISE Div RPM @Four Points 5311 S. Howell Milwaukee 9AM-4PM{$ceol}
+{$clis}28th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcms3}
+
+{$cmos}October{$ceol}
+{$clis}5th {$weoh} 10AM-7PM{$ceol}
+{$clis}12th {$weyg} 1-4PM{$ceol}
+{$clis}19th {$weyg} 1-4PM{$ceol}
+{$clis}27th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}November{$ceol}
+{$clis}2nd {$weyg} 1-4PM{$ceol}
+{$clis}8th setup @Trainfest{$ceol}
+{$clis}9th / 10th Trainfest 9AM-5PM{$ceol}
+{$clis}16th {$weyg} 1-4PM{$ceol}
+{$ceom}
+
+{$cmos}December{$ceol}
+{$clis}1st {$weys} 2-5PM{$ceol}
+{$clis}7th {$weoh} 10AM-7PM{$ceol}
+{$clis}14th {$weyg} 1-4PM{$ceol}
+{$clis}14th WCGD5hristmassPa2t5 5pm{$ceol}
+{$clis}28th {$wey1} 1-4PM{$ceol}
+{$ceom}{$wcgd_dcmsz}
+
+{$wcgd_dcmta}{$lwgg_photo[4]}{$cyos}2020{$ceol}
+{$wcgd_dcmt0}{$cmos}January{$ceol}
+{$clis}5th {$weys} 2-5PM{$ceol}
+{$clis}11th {$weyg} 1-4PM{$ceol}
+{$clis}17th (4-9pm) / 18th (10am-7pm) / 19th (10am-5pm) {$weoh}{$ceol}
+{$clis}19th {$wewf} 12:30pm{$ceol}
+{$clis}24th (4-9pm) / 25th (10am-7pm) / 26th (10am-5pm) {$weoh}{$ceol}
+{$ceom}
+
+{$cmos}February{$ceol}
+{$clis}1st WCGD Banquet @Lions Club Big Bend 5pm{$ceol}
+{$clis}2nd {$weys} 2-5PM{$ceol}
+{$clis}8th {$weyg} 1-4PM{$ceol}
+{$clis}15th WISE Div Bus Trip to Madison Show <b>$</b>{$ceol}
+{$clis}23rd {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}March{$ceol}
+{$clis}1st {$weys} 2-5PM{$ceol}
+{$clis}7th {$weoh} 10AM-7PM{$ceol}
+{$clis}14th {$weyg} 1-4PM{$ceol}
+{$clis}15th WISE Div Meet @Mt. Pleasant Luth Church 1700 S. Green Bay Rd Racine CANCELLED{$ceol}
+{$clis}29th {$weys} CANCELLED{$ceol}
+{$ceom}{$wcgd_dcmt1}
+
+{$cmos}April{$ceol}
+{$clis}4th {$weyg} CANCELLED{$ceol}
+{$clis}17th / 18th Spring WISEop Weekend CANCELLED{$ceol}
+{$clis}19th {$wewf} 12:30pm CANCELLED{$ceol}
+{$clis}26th {$weys} CANCELLED{$ceol}
+{$ceom}
+
+{$cmos}May{$ceol}
+{$clis}2nd {$weoh} CANCELLED{$ceol}
+{$clis}3rd WISE Div Bus Trip to DuPage Show CANCELLED{$ceol}
+{$clis}9th {$weyg} CANCELLED{$ceol}
+{$clis}31st {$weys} CANCELLED{$ceol}
+{$ceom}
+
+{$cmos}June{$ceol}
+{$clis}6th WCGD Metra trip CANCELLED{$ceol}
+{$clis}13th {$weyg} 1-4PM{$ceol}
+{$clis}28th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmt2}
+
+{$cmos}July{$ceol}
+{$clis}11th {$weyg} 1-4PM{$ceol}
+{$clis}26th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}August{$ceol}
+{$clis}1st {$weoh} 10AM-7PM{$ceol}
+{$clis}8th {$weyg} 1-4PM{$ceol}
+{$clis}15th {$weyg} 1-4PM{$ceol}
+{$clis}23rd {$weys} 2-5PM{$ceol}
+{$clis}30th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}September{$ceol}
+{$clis}5th {$weoh} 10AM-7PM{$ceol}
+{$clis}5th disassemble layout 7pm{$ceol}
+{$clis}11th / 12th / 13th ? Fall Harvest Days 9AM-5PM{$ceol}
+{$clis}19th {$weyg}/reassemble layout 1-4PM{$ceol}
+{$clis}26th WISE Div RPM @Four Points 5311 S. Howell Milwaukee 9AM-4PM{$ceol}
+{$clis}27th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmt3}
+
+{$cmos}October{$ceol}
+{$clis}3rd {$weoh} 10AM-7PM{$ceol}
+{$clis}10th {$weyg} 1-4PM{$ceol}
+{$clis}17th {$weyg} 1-4PM{$ceol}
+{$clis}25th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}November{$ceol}
+{$clis}1st {$weys} 2-5PM&nbsp; (disassemble layout){$ceol}
+{$clis}7th {$weyg}/disassemble layout 1-4PM{$ceol}
+{$clis}13th setup @Trainfest{$ceol}
+{$clis}14th / 15th Trainfest 9AM-5PM{$ceol}
+{$clis}21st {$weyg}/reassemble layout 1-4PM{$ceol}
+{$clis}29th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}December{$ceol}
+{$clis}5th {$weoh} 10AM-7PM{$ceol}
+{$clis}12th {$weyg} 1-4PM{$ceol}
+{$clis}12th WCGD Christmas Party 5pm{$ceol}
+{$clis}27th {$weyg} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmtz}
+
+{$wcgd_dcmua}{$lwgg_photo[4]}{$cyos}2021{$ceol}
+{$wcgd_dcmu0}{$wcgd_dcmu1}{$cmos}May{$ceol}
+{$clis}8th {$weyg} 1-4PM{$ceol}
+{$clis}30th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}June{$ceol}
+{$clis}12th {$weyg} 1-4PM{$ceol}
+{$clis}27th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmu2}
+
+{$cmos}July{$ceol}
+{$clis}10th {$weyg} 1-4PM{$ceol}
+{$clis}25th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}August{$ceol}
+{$clis}7th {$weoh} 10AM-6PM{$ceol}
+{$clis}14th {$weyg} 1-4PM{$ceol}
+{$clis}21st {$weyg} 1-4PM{$ceol}
+{$clis}29th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}September{$ceol}
+{$clis}4th {$weyg} 1-4PM{$ceol}
+{$clis}11th {$weyg} 1-4PM{$ceol}
+{$clis}18th {$weyg} 1-4PM{$ceol}
+{$clis}26th {$weys} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmu3}
+
+{$cmos}October{$ceol}
+{$clis}2nd {$weoh} 10AM-6PM{$ceol}
+{$clis}9th {$weyg} 1-4PM{$ceol}
+{$clis}16th {$weyg} 1-4PM{$ceol}
+{$clis}24th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}November{$ceol}
+{$clis}6th {$weyg} 1-4PM{$ceol}
+{$clis}13th {$weoh} 10AM-6PM{$ceol}
+{$clis}14th {$weoh} 10AM-6PM{$ceol}
+{$clis}20th {$weyg} 1-4PM{$ceol}
+{$clis}28th {$weys} 2-5PM{$ceol}
+{$ceom}
+
+{$cmos}December{$ceol}
+{$clis}4th {$weoh} 10AM-6PM{$ceol}
+{$clis}11th {$weyg} 1-4PM{$ceol}
+{$clis}11th WCGD Christmas Party 5pm{$ceol}
+{$clis}26th {$weyg} 2-5PM{$ceol}
+{$ceom}{$wcgd_dcmuz}
+
+";
+?>
+
+       <!-- "''"--></div>
+      </div>
+      <p></p>
+      
+   </div>
+   <!--/area Type="main"-->
+   <!--area Type="area_a" class="user area_a"-->
+   <div xmlns:local="local" class="user area_a">
+      
+      
+      <? echo $lwgg_photo[2]."<p style=\"text-align: justify; font: bold 18px Verdana,Geneva,sans-serif;\">Membership in our youth group is open to boys and girls, age 8 through 17, with interest in model railroads and the ability to learn.&nbsp; There are no club dues for youth group.&nbsp; Parental supervision is required, and parental involvement is encouraged!</p>
+      <p style=\"text-align: justify; font: italic bold 20px 'Palatino Linotype','Book Antiqua',Palatino,serif;\"><span style=\"font-style: normal;\">Youth Group Mission...</span> to provide teaching and support for youth and parents for the advancement of their skills in the hobby of model railroading.</p>
+      ".$lwgg_photo[3]; ?><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p></p>
+   </div>
+   <!--/area Type="area_a"-->
+   	
+   <!--area Type="area_b" class="user area_b"-->
+   <!--/area Type="area_b"-->
+   	
+   <!--area Type="area_c" class="user area_c"-->
+<?
+echo $wcgd_sc;
+?>   <!--/area Type="area_c"--><?
+echo $wcgd_footer;
+?>
